@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="style.css">
+    <title>Registration Form</title>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Registration Form</h2>
+        <form id="regis">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            <div id="nameError" class="error"></div>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <div id="emailError" class="error"></div>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <div id="passwordError" class="error"></div>
+
+            <button type="submit" id="submitButt" disabled>Submit</button>
+        </form>
+    </div>
+    <script>
+        // Inputs
+        var nameInput = document.getElementById("name");
+        var emailInput = document.getElementById("email");
+        var passwordInput = document.getElementById("password");
+
+        //Submit
+        var submitButt = document.getElementById('submitButt');
+
+        //Error
+        var nameError = document.getElementById('nameError');
+        var emailError = document.getElementById('emailError');
+        var passwordError = document.getElementById('passwordError');
+
+
+
+        //Validate function
+        function valForm() {
+            let isVal = true;
+
+            // Name validation
+            if (nameInput.value.trim() === "") {
+                nameInput.classList.add("ernam");
+                nameError.textContent = "Please enter your name";
+                isVal = false;
+            } else {
+                nameError.textContent = "";
+                nameInput.classList.remove("ernam");
+            }
+
+            // Email validation
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (emailInput.value.match(emailPattern)) {
+                emailError.textContent = '';
+                emailInput.classList.remove("eremail");
+            }
+            else {
+                emailError.textContent = 'Please enter a valid email address.';
+                emailInput.classList.add("eremail");
+                isVal = false;
+            }
+
+
+            // Password validation
+            if (passwordInput.value.length < 8) {
+                passwordError.textContent = 'Password must be atleast 8 characters';
+                passwordInput.classList.add("erpass");
+                isVal = false;
+            } else {
+                passwordError.textContent = '';
+                passwordInput.classList.remove("erpass");
+            }
+
+            // Enable or disable submit button
+            submitButt.disabled = !isVal;
+        }
+
+        //Event listeners
+        nameInput.addEventListener('input', valForm);
+        emailInput.addEventListener('input', valForm);
+        passwordInput.addEventListener('input', valForm);
+
+    </script>
+</body>
+
+</html>
